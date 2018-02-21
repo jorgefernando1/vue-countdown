@@ -224,20 +224,20 @@ export default {
      * @emits Countdown#countdownstart
      */
     start() {
-      if (this.counting) {
-        return;
-      }
+      this.$nextTick(()=> {
+        if (this.counting) { return; }
 
-      if (this.emitEvents) {
-        /**
-         * Countdown start event.
-         * @event Countdown#countdownstart
-         */
-        this.$emit('countdownstart');
-      }
+        if (this.emitEvents) {
+          /**
+           * Countdown start event.
+           * @event Countdown#countdownstart
+           */
+          this.$emit('countdownstart');
+        }
 
-      this.counting = true;
-      this.step();
+        this.counting = true;
+        this.step();
+      });
     },
 
     /**
