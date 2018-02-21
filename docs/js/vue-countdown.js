@@ -2,10 +2,10 @@
  * vue-countdown v0.5.0
  * https://github.com/xkeshi/vue-countdown
  *
- * Copyright (c) 2017 Xkeshi
+ * Copyright (c) 2018 Xkeshi
  * Released under the MIT license
  *
- * Date: 2017-11-20T03:10:33.102Z
+ * Date: 2018-02-21T13:54:55.889Z
  */
 
 (function (global, factory) {
@@ -214,10 +214,6 @@ var index = {
     this.init();
   },
   mounted: function mounted() {
-    if (this.autoStart) {
-      this.start();
-    }
-
     window.addEventListener('focus', this.onFocus = this.update.bind(this));
   },
   beforeDestroy: function beforeDestroy() {
@@ -237,12 +233,20 @@ var index = {
      * Initialize count.
      */
     init: function init() {
+      var _this2 = this;
+
       var time = this.time;
 
 
       if (time > 0) {
         this.count = time;
         this.endTime = this.now() + time;
+
+        if (this.autoStart) {
+          this.$nextTick(function () {
+            _this2.start();
+          });
+        }
       }
     },
 
@@ -253,20 +257,24 @@ var index = {
      * @emits Countdown#countdownstart
      */
     start: function start() {
-      if (this.counting) {
-        return;
-      }
+      var _this3 = this;
 
-      if (this.emitEvents) {
-        /**
-         * Countdown start event.
-         * @event Countdown#countdownstart
-         */
-        this.$emit('countdownstart');
-      }
+      this.$nextTick(function () {
+        if (_this3.counting) {
+          return;
+        }
 
-      this.counting = true;
-      this.step();
+        if (_this3.emitEvents) {
+          /**
+           * Countdown start event.
+           * @event Countdown#countdownstart
+           */
+          _this3.$emit('countdownstart');
+        }
+
+        _this3.counting = true;
+        _this3.step();
+      });
     },
 
 
@@ -276,7 +284,7 @@ var index = {
      * @emits Countdown#countdownprogress
      */
     step: function step() {
-      var _this2 = this;
+      var _this4 = this;
 
       if (!this.counting) {
         return;
@@ -300,8 +308,8 @@ var index = {
 
 
         this.timeout = setTimeout(function () {
-          _this2.count -= interval;
-          _this2.step();
+          _this4.count -= interval;
+          _this4.step();
         }, interval);
       } else {
         this.count = 0;
