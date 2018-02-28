@@ -5,7 +5,7 @@
  * Copyright (c) 2018 Xkeshi
  * Released under the MIT license
  *
- * Date: 2018-02-21T13:54:55.889Z
+ * Date: 2018-02-28T18:46:40.759Z
  */
 
 (function (global, factory) {
@@ -258,6 +258,12 @@ var index = {
      */
     start: function start() {
       var _this3 = this;
+
+      var time = this.time;
+
+
+      this.count = time;
+      this.endTime = this.now() + time;
 
       this.$nextTick(function () {
         if (_this3.counting) {

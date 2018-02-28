@@ -224,8 +224,14 @@ export default {
      * @emits Countdown#countdownstart
      */
     start() {
+      const { time } = this;
+
+      this.count = time;
+      this.endTime = this.now() + time;
+
       this.$nextTick(()=> {
         if (this.counting) { return; }
+
 
         if (this.emitEvents) {
           /**
