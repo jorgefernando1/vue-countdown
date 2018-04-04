@@ -119,14 +119,6 @@ export default {
       const { interval } = this;
       const seconds = (this.count % MILLISECONDS_MINUTE) / MILLISECONDS_SECOND;
 
-      if (interval < 10) {
-        return seconds.toFixed(3);
-      } else if (interval >= 10 && interval < 100) {
-        return seconds.toFixed(2);
-      } else if (interval >= 100 && interval < 1000) {
-        return seconds.toFixed(1);
-      }
-
       return Math.floor(seconds);
     },
 
@@ -309,5 +301,9 @@ export default {
         this.count = Math.max(0, this.endTime - this.now());
       }
     },
+
+    getElapsedTime() {
+      return this.time - this.count;
+    }
   },
 };

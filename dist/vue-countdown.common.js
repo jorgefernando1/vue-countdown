@@ -5,7 +5,7 @@
  * Copyright (c) 2018 Xkeshi
  * Released under the MIT license
  *
- * Date: 2018-02-28T18:46:40.759Z
+ * Date: 2018-04-04T15:53:06.068Z
  */
 
 'use strict';
@@ -139,14 +139,6 @@ var index = {
       var interval = this.interval;
 
       var seconds = this.count % MILLISECONDS_MINUTE / MILLISECONDS_SECOND;
-
-      if (interval < 10) {
-        return seconds.toFixed(3);
-      } else if (interval >= 10 && interval < 100) {
-        return seconds.toFixed(2);
-      } else if (interval >= 100 && interval < 1000) {
-        return seconds.toFixed(1);
-      }
 
       return Math.floor(seconds);
     },
@@ -347,8 +339,12 @@ var index = {
       if (this.counting) {
         this.count = Math.max(0, this.endTime - this.now());
       }
+    },
+    getElapsedTime: function getElapsedTime() {
+      return this.time - this.count;
     }
   }
 };
 
 module.exports = index;
+//# sourceMappingURL=vue-countdown.common.js.map
