@@ -5,7 +5,7 @@
  * Copyright (c) 2018 Xkeshi
  * Released under the MIT license
  *
- * Date: 2018-04-04T15:53:06.068Z
+ * Date: 2018-04-25T20:33:50.417Z
  */
 
 (function (global, factory) {
@@ -353,4 +353,3 @@ var index = {
 return index;
 
 })));
-//# sourceMappingURL=vue-countdown.js.map
