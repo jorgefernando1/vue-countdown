@@ -116,7 +116,6 @@ export default {
      * @returns {number}
      */
     seconds() {
-      const { interval } = this;
       const seconds = (this.count % MILLISECONDS_MINUTE) / MILLISECONDS_SECOND;
 
       return Math.floor(seconds);
@@ -197,15 +196,12 @@ export default {
      */
     init() {
       const { time } = this;
-
       if (time > 0) {
         this.count = time;
         this.endTime = this.now() + time;
 
         if (this.autoStart) {
-          this.$nextTick(() => {
-            this.start();
-          });
+          this.$nextTick(() => { this.start(); });
         }
       }
     },
@@ -221,9 +217,8 @@ export default {
       this.count = time;
       this.endTime = this.now() + time;
 
-      this.$nextTick(()=> {
+      this.$nextTick(() => {
         if (this.counting) { return; }
-
 
         if (this.emitEvents) {
           /**
@@ -244,9 +239,7 @@ export default {
      * @emits Countdown#countdownprogress
      */
     step() {
-      if (!this.counting) {
-        return;
-      }
+      if (!this.counting) { return; }
 
       if (this.emitEvents) {
         /**
@@ -265,7 +258,13 @@ export default {
         const { interval } = this;
 
         this.timeout = setTimeout(() => {
-          this.count -= interval;
+        /*
+          Calculate the remaining time on each step, in order to approve the
+          countdown accuracy
+         */
+          const timeRemaning = this.endTime - this.now();
+
+          this.count = timeRemaning;
           this.step();
         }, interval);
       } else {
@@ -304,6 +303,6 @@ export default {
 
     getElapsedTime() {
       return this.time - this.count;
-    }
+    },
   },
 };
