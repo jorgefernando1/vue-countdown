@@ -2,10 +2,10 @@
  * vue-countdown v0.5.0
  * https://github.com/xkeshi/vue-countdown
  *
- * Copyright (c) 2018 Xkeshi
+ * Copyright (c) 2019 Xkeshi
  * Released under the MIT license
  *
- * Date: 2018-04-25T20:33:50.417Z
+ * Date: 2019-05-21T22:40:47.770Z
  */
 
 var MILLISECONDS_SECOND = 1000;
@@ -134,8 +134,6 @@ var index = {
      * @returns {number}
      */
     seconds: function seconds() {
-      var interval = this.interval;
-
       var seconds = this.count % MILLISECONDS_MINUTE / MILLISECONDS_SECOND;
 
       return Math.floor(seconds);
@@ -223,7 +221,6 @@ var index = {
 
       var time = this.time;
 
-
       if (time > 0) {
         this.count = time;
         this.endTime = this.now() + time;
@@ -300,7 +297,13 @@ var index = {
 
 
         this.timeout = setTimeout(function () {
-          _this4.count -= interval;
+          /*
+            Calculate the remaining time on each step, in order to approve the
+            countdown accuracy
+           */
+          var timeRemaning = _this4.endTime - _this4.now();
+
+          _this4.count = timeRemaning;
           _this4.step();
         }, interval);
       } else {
